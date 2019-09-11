@@ -1,6 +1,6 @@
 {
-	"pipelines": [
-		{
+	"pipelines": {
+		"standart": {
 			"name": "standart",
 			"inputDir": "./base",
 			"outputDir": "./base",
@@ -26,13 +26,13 @@
 				{
 					"type": "emote",
 					"parameters": {
-						
+
 					}
 				}
 			]
 		},
-		{
+		"light": {
 			"name": "light"
 		}
-	]
+	}
 }
