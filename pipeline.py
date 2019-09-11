@@ -91,12 +91,13 @@ def run_pipeline():
 				if entity["type"] == "emote":
 					# manually alter expression
 					new_expression_coeffs = np.zeros_like(coeffs.expression_coeffs(0))
-					new_expression_coeffs[0] = entity["anger"]
-					new_expression_coeffs[1] = entity["disgust"]
-					new_expression_coeffs[2] = entity["fear"]
-					new_expression_coeffs[3] = entity["happiness"]
-					new_expression_coeffs[4] = entity["sadness"]
-					new_expression_coeffs[5] = entity["surprise"]
+					parameters = entity["parameters"]
+					new_expression_coeffs[0] = parameters["anger"]
+					new_expression_coeffs[1] = parameters["disgust"]
+					new_expression_coeffs[2] = parameters["fear"]
+					new_expression_coeffs[3] = parameters["happiness"]
+					new_expression_coeffs[4] = parameters["sadness"]
+					new_expression_coeffs[5] = parameters["surprise"]
 					render_img = jitterer.render(coeffs.camera(0), coeffs.subject_coeffs(), new_expression_coeffs, subject_components, expression_components)
 				elif: entity["type"] == "pose":
 					# manually alter pose
