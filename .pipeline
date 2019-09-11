@@ -1,0 +1,38 @@
+{
+	"pipelines": [
+		{
+			"name": "standart",
+			"inputDir": "./base",
+			"outputDir": "./base",
+			"entities": [
+				{
+					"type": "emote",
+					"parameters": {
+
+					}
+				},
+				{
+					"type": "emote",
+					"parameters": {
+
+					}
+				},
+				{
+					"type": "pose",
+					"parameters": {
+
+					}
+				},
+				{
+					"type": "emote",
+					"parameters": {
+						
+					}
+				}
+			]
+		},
+		{
+			"name": "light"
+		}
+	]
+}
