@@ -24,7 +24,7 @@ def run_pipeline():
 	model = pix2face.test.load_pretrained_model(cuda_device=cuda_device)
 
 	this_dir = os.path.dirname(__file__)
-	pvr_data_dir = os.path.join(this_dir, 'face3d/data_3DMM/')
+	pvr_data_dir = os.path.join(this_dir, 'data_3DMM/')
 	debug_dir = ''
 	debug_mode = False
 	num_subject_coeffs = 199  # max 199
