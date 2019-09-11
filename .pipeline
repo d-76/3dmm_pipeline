@@ -6,6 +6,7 @@
 			"outputDir": "./base",
 			"entities": [
 				{
+					"name": "anger",
 					"type": "emote",
 					"parameters": {
 
