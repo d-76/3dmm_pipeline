@@ -30,7 +30,7 @@ def run_pipeline():
 	num_subject_coeffs = 199  # max 199
 	num_expression_coeffs = 29  # max 29
 
-	# load needed data files
+	# Load needed data files
 	head_mesh = face3d.head_mesh(pvr_data_dir)
 	subject_components = np.load(os.path.join(pvr_data_dir, 'pca_components_subject.npy'))
 	expression_components = np.load(os.path.join(pvr_data_dir, 'pca_components_expression.npy'))
@@ -43,9 +43,9 @@ def run_pipeline():
 	subject_ranges = vxl.vnl.matrix(subject_ranges[0:num_subject_coeffs,:])
 	expression_ranges = vxl.vnl.matrix(expression_ranges[0:num_expression_coeffs,:])
 
-	# create rendering object (encapsulates OpenGL context)
+	# Create rendering object (encapsulates OpenGL context)
 	renderer = face3d.mesh_renderer()
-	# create coefficient estimator
+	# Create coefficient estimator
 	coeff_estimator = face3d.media_coefficient_from_PNCC_and_offset_estimator(head_mesh, subject_components, expression_components, subject_ranges, expression_ranges, debug_mode, debug_dir)
 
 
@@ -65,10 +65,10 @@ def run_pipeline():
 			offsets_rgb = offsets / 60.0 + 0.5
 			pix2face_data = pix2face_estimation.coefficient_estimation.load_pix2face_data()
 
-			# create rendering object (encapsulates OpenGL context)
+			# Create rendering object (encapsulates OpenGL context)
 			renderer = face3d.mesh_renderer()
 			
-			# create coefficient estimator
+			# Create coefficient estimator
 			coeff_estimator = face3d.media_coefficient_from_PNCC_and_offset_estimator(head_mesh, subject_components, expression_components, subject_ranges, expression_ranges, debug_mode, debug_dir)
 			
 			# Estimate Coefficients from PNCC and Offsets
@@ -89,7 +89,7 @@ def run_pipeline():
 
 			for entity in pipeline_config["entities"]:
 				if entity["type"] == "emote":
-					# manually alter expression
+                                        # Emote parameters from config (.pipeline)
 					new_expression_coeffs = np.zeros_like(coeffs.expression_coeffs(0))
 					parameters = entity["parameters"]
 					new_expression_coeffs[0] = parameters["anger"]
@@ -100,8 +100,9 @@ def run_pipeline():
 					new_expression_coeffs[5] = parameters["surprise"]
 					render_img = jitterer.render(coeffs.camera(0), coeffs.subject_coeffs(), new_expression_coeffs, subject_components, expression_components)
 				elif: entity["type"] == "pose":
-					# manually alter pose
-					delta_R = vxl.vgl.rotation_3d(geometry_utils.Euler_angles_to_quaternion(np.pi/3, 0, 0, order='YXZ'))
+                                        # Pose parameters from config
+                                        parameters = entity["parameters"]
+					delta_R = vxl.vgl.rotation_3d(geometry_utils.Euler_angles_to_quaternion(parameters["Y_angles"], parameters["X_angles"], parameters["Z_angles"], order='YXZ'))
 					cam = coeffs.camera(0)
 					new_R = cam.rotation * delta_R
 					new_cam = face3d.perspective_camera_parameters(cam.focal_len, cam.principal_point, new_R, cam.translation, cam.nx, cam.ny)
