@@ -15,7 +15,7 @@ def run_pipeline():
 	args = parser.parse_args()
 
 	# Read json config
-	json_file = open('./.pipeline')
+	json_file = open('./config.json')
 	data = json.load(json_file)
 	pipeline_config = data["pipelines"][args.pipeline]
 	json_file.close()
