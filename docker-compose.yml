@@ -1,0 +1,16 @@
+version: "2.3"
+services:
+  pix2face:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pix2face:pix2face_main
+    environment:
+      - DOCKER_USERNAME=pix2face_user
+      - DISPLAY
+      - PYTHONPATH=/pix2face/install/python:/pix2face/pix2face_net/:/pix2face/python
+    volumes:
+      - ./:/pix2face
+      - ./pix2face_user:/home/pix2face_user
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    runtime: nvidia 
