@@ -11,6 +11,6 @@ services:
       - PYTHONPATH=/pix2face/install/python:/pix2face/pix2face_net/:/pix2face/python
     volumes:
       - ./:/pix2face
-      - ./pix2face_user:/home/pix2face_user
+      - ./home:/home/pix2face_user
       - /tmp/.X11-unix:/tmp/.X11-unix
     runtime: nvidia 
