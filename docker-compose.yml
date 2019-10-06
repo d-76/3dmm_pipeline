@@ -13,4 +13,4 @@ services:
       - ./:/pix2face
       - ./home:/home/pix2face_user
       - /tmp/.X11-unix:/tmp/.X11-unix
-    runtime: nvidia 
+    runtime: nvidia
