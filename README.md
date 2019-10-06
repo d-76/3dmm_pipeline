@@ -3,6 +3,7 @@
 ## Предварительные требования
 	* docker
 	* docker-compose
+	* nvidia-docker
 
 ## Развёртка
 	1) git clone --recursive https://github.com/d-76/3dmm_pipeline.git (рекурсивно клонируем)

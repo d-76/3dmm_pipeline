@@ -18,7 +18,7 @@ RUN python3 -m venv /pix2face/venv;\
     source /pix2face/venv/bin/activate; \
     pip install --upgrade pip; \
     pip install -r /pix2face/requirements.txt; \
-    pip install torch;
+    pip install torch; \
     pip install torchvision
 
 ENV GOSU_VERSION 1.10
