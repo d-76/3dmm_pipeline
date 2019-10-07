@@ -5,9 +5,9 @@ cd /pix2face/build
 rm -rf *
 source /pix2face/venv/bin/activate
 if [ ${CPU_ONLY} -eq 0 ]; then
-    cmake /pix2face/face3d/ -DEGL_INCLUDE_DIR=/pix2face/EGL-Registry/api -DPYTHON_SITE=/pix2face/install/python -DCMAKE_INSTALL_PREFIX=/pix2face/install -GNinja
+    cmake /pix2face/lib/face3d/ -DEGL_INCLUDE_DIR=/pix2face/lib/EGL-Registry/api -DPYTHON_SITE=/pix2face/install/python -DCMAKE_INSTALL_PREFIX=/pix2face/install -GNinja
     ninja install
 else
-    cmake /pix2face/face3d/ -DEGL_INCLUDE_DIR=/pix2face/EGL-Registry/api -DPYTHON_SITE=/pix2face/install/python -DCMAKE_INSTALL_PREFIX=/pix2face/install -DDLIB_USE_CUDA=No -DFACE3D_USE_CUDA=No -GNinja
+    cmake /pix2face/lib/face3d/ -DEGL_INCLUDE_DIR=/pix2face/lib/EGL-Registry/api -DPYTHON_SITE=/pix2face/install/python -DCMAKE_INSTALL_PREFIX=/pix2face/install -DDLIB_USE_CUDA=No -DFACE3D_USE_CUDA=No -GNinja
     ninja install
 fi

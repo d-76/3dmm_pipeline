@@ -10,7 +10,27 @@ services:
       - DISPLAY
       - PYTHONPATH=/pix2face/install/python:/pix2face/lib/pix2face_net/:/pix2face/python
     volumes:
-      - ./:/pix2face
-      - ./home:/home/pix2face_user
-      - /tmp/.X11-unix:/tmp/.X11-unix
+      - type: bind
+        source: ./home 
+        target: /home/pix2face_user
+      - type: bind
+        source: .
+        target: /pix2face
+      - type: volume
+        source: pix2face_build
+        target: /pix2face/build
+      - type: volume
+        source: pix2face_venv
+        target: /pix2face/venv
+      - type: volume
+        source: pix2face_install
+        target: /pix2face/install
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
     runtime: nvidia
+
+volumes:
+  pix2face_build:
+  pix2face_install:
+  pix2face_venv:
