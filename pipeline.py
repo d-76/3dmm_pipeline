@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import argparse
+import pix2face_estimation
 import pix2face_estimation.geometry_utils as geometry_utils
 import face3d
 import vxl
@@ -11,11 +12,11 @@ from PIL import Image
 def run_pipeline():
 	# Read pipeline type from command line
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--pipeline', help='sets pipeline')
+	parser.add_argument('--pipeline', help='sets pipeline', default='default')
 	args = parser.parse_args()
 
 	# Read json config
-	json_file = open('./config.json')
+	json_file = open('/pix2face/config.json')
 	data = json.load(json_file)
 	pipeline_config = data["pipelines"][args.pipeline]
 	json_file.close()
@@ -25,7 +26,7 @@ def run_pipeline():
 	model = pix2face.test.load_pretrained_model(cuda_device=cuda_device)
 
 	this_dir = os.path.dirname(__file__)
-	pvr_data_dir = os.path.join(this_dir, 'data_3DMM/')
+	pvr_data_dir = os.path.join('/pix2face/lib/face3d/data_3DMM/')
 	debug_dir = ''
 	debug_mode = False
 	num_subject_coeffs = 199  # max 199
@@ -52,12 +53,13 @@ def run_pipeline():
 
 	data_dir = pipeline_config["inputDir"]
 	output_dir = pipeline_config["outputDir"]
-	directories = [x[0] for x in os.walk(data_dir)]
+	directories = os.listdir(data_dir)
 	for directory in directories:
 		files = os.listdir(os.path.join(data_dir, directory))
-		for file in files:
-			file_path, ext_path = os.path.splitext(file)
-			img_fname = os.path.join(path, directory, file)
+		for file_item in files:
+			file_path, ext_path = os.path.splitext(file_item)
+			img_fname = os.path.join(data_dir, directory, file_item)
+			print(data_dir, directory, file_item)
 			img = np.array(Image.open(img_fname))
 			outputs = pix2face.test.test(model, [img,])
 			pncc = outputs[0][0]
@@ -108,7 +110,7 @@ def run_pipeline():
 					new_cam = face3d.perspective_camera_parameters(cam.focal_len, cam.principal_point, new_R, cam.translation, cam.nx, cam.ny)
 					render_img = jitterer.render(new_cam, coeffs.subject_coeffs(), coeffs.expression_coeffs(0), subject_components, expression_components)
 
-				Image.fromarray(render_expr[:,:,0:3]).save(os.path.join(os.path.join(output_dir, directory), file_path + "_" + entity["name"] + "." + ext_path))
+				Image.fromarray(render_img[:,:,0:3]).save(os.path.join(os.path.join(output_dir, directory), file_path + "_" + entity["name"] + "." + ext_path))
 			Image.fromarray(img).save(os.path.join(os.path.join(output_dir, directory), file_path + "_original." + ext_path))
 
 if __name__ == "__main__":

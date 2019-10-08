@@ -8,7 +8,7 @@ services:
     environment:
       - DOCKER_USERNAME=pix2face_user
       - DISPLAY
-      - PYTHONPATH=/pix2face/install/python:/pix2face/lib/pix2face_net/:/pix2face/python
+      - PYTHONPATH=/pix2face/install/python:/pix2face/lib/pix2face_net/:/pix2face/lib/python
     volumes:
       - type: bind
         source: ./home 

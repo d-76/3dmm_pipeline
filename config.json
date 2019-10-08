@@ -1,9 +1,9 @@
 {
 	"pipelines": {
-		"standart": {
+		"default": {
 			"name": "standart",
-			"inputDir": "./base",
-			"outputDir": "./base",
+			"inputDir": "/home/pix2face_user/in",
+			"outputDir": "/home/pix2face_user/out",
 			"entities": [
 				{
 					"name": "fear",
